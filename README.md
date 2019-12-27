@@ -48,6 +48,119 @@ MemoryAllocator.GetUsableSize(memory);
 MemoryAllocator.Free(memory);
 ```
 
+##### Write data to memory block:
+```c#
+// Using Marshal
+byte data = 0;
+
+for (int i = 0; i < MemoryAllocator.GetUsableSize(memory); i++) {
+	Marshal.WriteByte(memory, i, data++);
+}
+
+// Using Span
+Span<byte> buffer;
+
+unsafe {
+	buffer = new Span<byte>((byte*)memory, MemoryAllocator.GetUsableSize(memory));
+}
+
+byte data = 0;
+
+for (int i = 0; i < buffer.Length; i++) {
+	buffer[i] = data++;
+}
+```
+
+##### Read data from memory block:
+```c#
+// Using Marshal
+int sum = 0;
+
+for (int i = 0; i < MemoryAllocator.GetUsableSize(memory); i++) {
+	sum += Marshal.ReadByte(memory, i);
+}
+
+// Using Span
+int sum = 0;
+
+foreach (var value in buffer) {
+	sum += value;
+}
+```
+
+##### Hardware accelerated operations:
+```c#
+// Xor using Vector and Span
+if (Vector.IsHardwareAccelerated) {
+	Span<Vector<byte>> bufferVector = MemoryMarshal.Cast<byte, Vector<byte>>(buffer);
+	Span<Vector<byte>> xorVector = MemoryMarshal.Cast<byte, Vector<byte>>(xor);
+
+	for (int i = 0; i < bufferVector.Length; i++) {
+		bufferVector[i] ^= xorVector[i];
+	}
+}
+```
+
+##### Copy data using memory block:
+```c#
+// Using Marshal
+byte[] data = new byte[64];
+
+// Copy from native memory
+Marshal.Copy(memory, data, 0, 64);
+
+// Copy to native memory
+Marshal.Copy(data, 0, memory, 64);
+
+// Using Buffer
+unsafe {
+	// Copy from native memory
+	fixed (byte* destination = &data[0]) {
+		Buffer.MemoryCopy((byte*)memory, destination, 64, 64);
+	}
+
+	// Copy to native memory
+	fixed (byte* source = &data[0]) {
+		Buffer.MemoryCopy(source, (byte*)memory, 64, 64);
+	}
+}
+```
+
+##### Custom data structures:
+```c#
+// Define a custom structure
+struct Entity {
+	public uint id;
+	public byte health;
+	public byte state;
+}
+
+int entitySize = Marshal.SizeOf(typeof(Entity));
+int entityCount = 10;
+
+// Allocate memory block
+IntPtr memory = MemoryAllocator.Malloc(entitySize * entityCount);
+
+// Create Span using native memory block
+Span<Entity> entities;
+
+unsafe {
+	entities = new Span<Entity>((void*)memory, entityCount);
+}
+
+// Do some stuff
+uint id = 1;
+
+for (int i = 0; i < entities.Length; i++) {
+	entities[i].id = id++;
+	entities[i].health = (byte)(new Random().Next(1, 100));
+	entities[i].state = (byte)(new Random().Next(1, 255));
+}
+
+// Release memory block
+MemoryAllocator.Free(memory);
+```
+
 Performance
 --------
 ``` ini
