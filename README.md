@@ -12,19 +12,49 @@ A managed assembly can be built using any available compiling platform that supp
 
 Usage
 --------
+##### Initialize rpmalloc before starting to work:
+```c#
+MemoryAllocator.Initialize();
+```
 
+##### Deinitialize rpmalloc after the work is done:
+```c#
+MemoryAllocator.Deinitialize();
+```
+
+##### Initialize thread-local data for a current thread:
+```c#
+MemoryAllocator.ThreadInitialize();
+```
+
+##### Deinitialize thread-local data for a current thread
+```c#
+MemoryAllocator.ThreadDeinitialize();
+```
+
+##### Allocate memory block:
+```c#
+// 64 bytes of a memory block
+IntPtr memory = MemoryAllocator.Malloc(64);
+```
+
+##### Query the usable size of the memory block:
+```c#
+MemoryAllocator.GetUsableSize(memory);
+```
+
+##### Release memory block:
+```c#
+MemoryAllocator.Free(memory);
+```
 
 Performance
 --------
 ``` ini
-
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 AMD Ryzen 5 1400, 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=3.1.100
   [Host] : .NET Core 3.1.0 (CoreCLR 4.700.19.56402, CoreFX 4.700.19.56404), X64 RyuJIT
-
-Job=InProcess  Toolchain=InProcessEmitToolchain  
-
 ```
 |     Method | BufferSize |       Mean |     Error |    StdDev | Ratio | RatioSD |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |----------- |----------- |-----------:|----------:|----------:|------:|--------:|-------:|------:|------:|----------:|
