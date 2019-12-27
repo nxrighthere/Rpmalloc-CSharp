@@ -163,7 +163,7 @@ MemoryAllocator.Free(memory);
 
 Performance
 --------
-``` ini
+```
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 AMD Ryzen 5 1400, 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=3.1.100
