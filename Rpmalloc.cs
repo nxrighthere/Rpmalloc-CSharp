@@ -1,5 +1,5 @@
 /*
- *  Managed C# wrapper for Rpmalloc, general-purpose memory allocator
+ *  Managed C# wrapper for Rpmalloc memory allocator
  *  Copyright (c) 2019 Stanislav Denisov
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
