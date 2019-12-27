@@ -72,6 +72,6 @@ namespace Rpmalloc {
 		public static extern IntPtr AlignedRealloc(IntPtr memory, int alignment, int size, int oldSize, uint flags);
 
 		[DllImport(nativeLibrary, EntryPoint = "rpmalloc_usable_size", CallingConvention = CallingConvention.Cdecl)]
-		public static extern long UsableSize(IntPtr memory);
+		public static extern long GetUsableSize(IntPtr memory);
 	}
 }
