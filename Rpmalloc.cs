@@ -68,10 +68,10 @@ namespace Rpmalloc {
 		[DllImport(nativeLibrary, EntryPoint = "rpaligned_alloc", CallingConvention = CallingConvention.Cdecl)]
 		public static extern IntPtr AlignedMalloc(int alignment, int size);
 
-        [DllImport(nativeLibrary, EntryPoint = "rpaligned_realloc", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(nativeLibrary, EntryPoint = "rpaligned_realloc", CallingConvention = CallingConvention.Cdecl)]
 		public static extern IntPtr AlignedRealloc(IntPtr memory, int alignment, int size, int oldSize, uint flags);
 
 		[DllImport(nativeLibrary, EntryPoint = "rpmalloc_usable_size", CallingConvention = CallingConvention.Cdecl)]
 		public static extern long UsableSize(IntPtr memory);
-    }
+	}
 }
