@@ -6,6 +6,8 @@
 
 This repository provides a managed C# wrapper for [rpmalloc](https://github.com/mjansson/rpmalloc) memory allocator which is created and maintained by [Mattias Jansson](https://github.com/mjansson). You will need to [build](https://github.com/mjansson/rpmalloc#building) the native library before you get started.
 
+It's highly recommended to use [`Span<T>`](https://docs.microsoft.com/en-us/dotnet/api/system.span-1) in tandem with rpmalloc to manage data in native memory blocks efficiently and more safely. Please, keep in mind that memory safety is entirely up to you.
+
 Building
 --------
 A managed assembly can be built using any available compiling platform that supports C# 3.0 or higher.
