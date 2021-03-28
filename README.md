@@ -14,17 +14,17 @@ A managed assembly can be built using any available compiling platform that supp
 
 Usage
 --------
-##### Initialize rpmalloc before starting to work:
+##### Initialize rpmalloc before starting to work
 ```c#
 MemoryAllocator.Initialize();
 ```
 
-##### Deinitialize rpmalloc after the work is done:
+##### Deinitialize rpmalloc after the work is done
 ```c#
 MemoryAllocator.Deinitialize();
 ```
 
-##### Initialize thread-local data for a current thread:
+##### Initialize thread-local data for a current thread
 ```c#
 MemoryAllocator.ThreadInitialize();
 ```
@@ -34,23 +34,23 @@ MemoryAllocator.ThreadInitialize();
 MemoryAllocator.ThreadDeinitialize();
 ```
 
-##### Allocate memory block:
+##### Allocate memory block
 ```c#
 // 64 bytes of a memory block
 IntPtr memory = MemoryAllocator.Malloc(64);
 ```
 
-##### Query the usable size of the memory block:
+##### Query the usable size of the memory block
 ```c#
 MemoryAllocator.GetUsableSize(memory);
 ```
 
-##### Release memory block:
+##### Release memory block
 ```c#
 MemoryAllocator.Free(memory);
 ```
 
-##### Write data to memory block:
+##### Write data to memory block
 ```c#
 // Using Marshal
 byte data = 0;
@@ -73,7 +73,7 @@ for (int i = 0; i < buffer.Length; i++) {
 }
 ```
 
-##### Read data from memory block:
+##### Read data from memory block
 ```c#
 // Using Marshal
 int sum = 0;
@@ -90,7 +90,7 @@ foreach (var value in buffer) {
 }
 ```
 
-##### Hardware accelerated operations:
+##### Hardware accelerated operations
 ```c#
 // Xor using Vector and Span
 if (Vector.IsHardwareAccelerated) {
@@ -103,7 +103,7 @@ if (Vector.IsHardwareAccelerated) {
 }
 ```
 
-##### Copy data using memory block:
+##### Copy data using memory block
 ```c#
 // Using Marshal
 byte[] data = new byte[64];
@@ -128,7 +128,7 @@ unsafe {
 }
 ```
 
-##### Custom data structures:
+##### Custom data structures
 ```c#
 // Define a custom structure
 struct Entity {
